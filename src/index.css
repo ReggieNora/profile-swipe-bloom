@@ -113,4 +113,36 @@
   .gradient-button {
     @apply bg-gradient-to-r from-profile-purple to-profile-pink text-white font-semibold py-3 px-6 rounded-full shadow-md hover:shadow-lg transition-all duration-300;
   }
+  
+  /* Card Flip Styles */
+  .card-inner {
+    @apply relative w-full h-full transition-transform duration-700 transform-style-preserve-3d;
+  }
+  
+  .flip .card-inner {
+    @apply rotate-y-180;
+  }
+  
+  .card-front,
+  .card-back {
+    @apply absolute w-full h-full backface-hidden rounded-3xl overflow-hidden;
+  }
+  
+  .card-back {
+    @apply rotate-y-180;
+  }
+}
+
+@layer utilities {
+  .transform-style-preserve-3d {
+    transform-style: preserve-3d;
+  }
+  
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+  
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
 }
