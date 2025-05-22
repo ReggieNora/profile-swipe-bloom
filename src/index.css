@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -97,5 +98,19 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply backdrop-blur-md bg-white/10 border border-white/20 shadow-lg;
+  }
+  
+  .gradient-bg {
+    @apply bg-gradient-to-br from-[#4B0032] via-[#6A0060] to-[#330033];
+  }
+  
+  .gradient-button {
+    @apply bg-gradient-to-r from-profile-purple to-profile-pink text-white font-semibold py-3 px-6 rounded-full shadow-md hover:shadow-lg transition-all duration-300;
   }
 }
