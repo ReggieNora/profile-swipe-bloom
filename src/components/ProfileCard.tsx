@@ -33,100 +33,117 @@ export const ProfileCard = ({
     }, 500);
   };
 
-  const handleViewProfile = () => {
+  const handleFlip = () => {
     setIsFlipped(!isFlipped);
   };
 
-  // Resume content based on the candidate
-  const getResumeContent = () => {
-    // This would ideally come from a database or API
-    return (
-      <div className="p-6 flex flex-col h-full">
-        <h3 className="text-lg font-bold text-white mb-4">Professional Experience</h3>
-        <div className="mb-4">
-          <p className="text-profile-light-purple text-sm font-semibold">Senior Frontend Developer</p>
-          <p className="text-white/80 text-xs">TechCorp Inc. • 2020 - Present</p>
-          <ul className="text-white/70 text-xs mt-1 list-disc pl-4">
-            <li>Led the redesign of the company's main product dashboard</li>
-            <li>Implemented responsive design patterns across all web applications</li>
-            <li>Reduced load times by 40% through code optimization</li>
-          </ul>
-        </div>
-
-        <div className="mb-4">
-          <p className="text-profile-light-purple text-sm font-semibold">Frontend Developer</p>
-          <p className="text-white/80 text-xs">WebSolutions • 2017 - 2020</p>
-          <ul className="text-white/70 text-xs mt-1 list-disc pl-4">
-            <li>Developed and maintained multiple client-facing applications</li>
-            <li>Created reusable component library using React</li>
-          </ul>
-        </div>
-        
-        <h3 className="text-lg font-bold text-white mb-2 mt-2">Education</h3>
-        <div>
-          <p className="text-profile-light-purple text-sm font-semibold">BS Computer Science</p>
-          <p className="text-white/80 text-xs">Tech University • 2013 - 2017</p>
-        </div>
-        
-        <button 
-          onClick={handleViewProfile}
-          className="mt-auto gradient-button w-full"
-        >
-          Back to Profile
-        </button>
-      </div>
-    );
+  // Mock resume data
+  const resumeData = {
+    education: "Bachelor's in Computer Science, Tech University",
+    experience: [
+      {
+        title: "Senior Front-End Developer",
+        company: "WebTech Solutions",
+        period: "2020-Present",
+        description: "Leading UI/UX development for enterprise applications"
+      },
+      {
+        title: "Front-End Developer",
+        company: "CreativeTech",
+        period: "2018-2020",
+        description: "Developed responsive web applications using modern frameworks"
+      }
+    ],
+    contact: {
+      email: "alex@example.com",
+      linkedin: "linkedin.com/in/alexjohnson"
+    }
   };
 
   return (
     <div className="flex flex-col items-center px-4 py-8">
       <div 
-        className={`glass-card rounded-3xl w-full max-w-xs animate-card-appear ${swipeAnimation || ''} ${isFlipped ? 'flip' : ''}`}
+        className={`glass-card rounded-3xl w-full max-w-xs animate-card-appear ${swipeAnimation || ''} ${isFlipped ? 'flip-card' : ''}`}
       >
-        <div className="card-inner">
-          {/* Front of Card */}
-          <div className="card-front flex flex-col items-center p-6">
-            {/* Profile Image */}
-            <div className="relative mb-4">
-              <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-white/30 shadow-lg">
-                <img 
-                  src={imageUrl} 
-                  alt={`${name}'s profile`} 
-                  className="w-full h-full object-cover"
-                />
+        <div className="flip-card-inner">
+          {/* Front side of the card */}
+          <div className="flip-card-front">
+            <div className="flex flex-col items-center p-6">
+              {/* Profile Image */}
+              <div className="relative mb-4">
+                <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-white/30 shadow-lg">
+                  <img 
+                    src={imageUrl} 
+                    alt={`${name}'s profile`} 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               </div>
+              
+              {/* Name and Role */}
+              <div className="text-center mb-6">
+                <h2 className="text-2xl font-bold text-white mb-1">{name}</h2>
+                <p className="text-profile-light-purple text-sm">{role}</p>
+              </div>
+              
+              {/* Skills */}
+              <div className="flex flex-wrap justify-center gap-2 mb-8">
+                {skills.map((skill) => (
+                  <span 
+                    key={skill} 
+                    className="px-4 py-1 rounded-full glass-card text-white/90 text-xs"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+              
+              {/* Button */}
+              <button 
+                className="gradient-button w-full"
+                onClick={handleFlip}
+              >
+                View Profile
+              </button>
             </div>
-            
-            {/* Name and Role */}
-            <div className="text-center mb-6">
-              <h2 className="text-2xl font-bold text-white mb-1">{name}</h2>
-              <p className="text-profile-light-purple text-sm">{role}</p>
-            </div>
-            
-            {/* Skills */}
-            <div className="flex flex-wrap justify-center gap-2 mb-8">
-              {skills.map((skill) => (
-                <span 
-                  key={skill} 
-                  className="px-4 py-1 rounded-full glass-card text-white/90 text-xs"
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
-            
-            {/* Button */}
-            <button 
-              className="gradient-button w-full"
-              onClick={handleViewProfile}
-            >
-              View Profile
-            </button>
           </div>
-          
-          {/* Back of Card (Resume) */}
-          <div className="card-back">
-            {getResumeContent()}
+
+          {/* Back side of the card (Resume) */}
+          <div className="flip-card-back">
+            <div className="flex flex-col p-6 h-full">
+              <h2 className="text-xl font-bold text-white mb-4 text-center">{name}'s Resume</h2>
+              
+              <div className="text-white/90 text-sm space-y-4 flex-1 overflow-auto">
+                <div>
+                  <h3 className="text-profile-light-purple font-semibold">Education</h3>
+                  <p>{resumeData.education}</p>
+                </div>
+                
+                <div>
+                  <h3 className="text-profile-light-purple font-semibold">Experience</h3>
+                  {resumeData.experience.map((exp, index) => (
+                    <div key={index} className="mb-2">
+                      <p className="font-medium">{exp.title} at {exp.company}</p>
+                      <p className="text-xs text-white/70">{exp.period}</p>
+                      <p className="text-xs mt-1">{exp.description}</p>
+                    </div>
+                  ))}
+                </div>
+                
+                <div>
+                  <h3 className="text-profile-light-purple font-semibold">Contact</h3>
+                  <p>Email: {resumeData.contact.email}</p>
+                  <p>LinkedIn: {resumeData.contact.linkedin}</p>
+                </div>
+              </div>
+              
+              <button 
+                className="gradient-button w-full mt-4"
+                onClick={handleFlip}
+              >
+                Back to Profile
+              </button>
+            </div>
           </div>
         </div>
       </div>
