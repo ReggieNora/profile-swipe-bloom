@@ -1,6 +1,6 @@
-
 import { useState } from "react";
 import { Heart, Star, X } from "lucide-react";
+import { FullProfileCard } from "./FullProfileCard";
 
 interface ProfileCardProps {
   name: string;
@@ -18,6 +18,7 @@ export const ProfileCard = ({
   onSwipe,
 }: ProfileCardProps) => {
   const [swipeAnimation, setSwipeAnimation] = useState<string | null>(null);
+  const [showFullProfile, setShowFullProfile] = useState(false);
 
   const handleSwipe = (direction: 'left' | 'right' | 'up') => {
     if (direction === 'left') {
@@ -31,6 +32,31 @@ export const ProfileCard = ({
       setSwipeAnimation(null);
     }, 500);
   };
+
+  if (showFullProfile) {
+    return (
+      <FullProfileCard
+        name={name}
+        role={role}
+        bio="Passionate developer with 5+ years of experience building beautiful and responsive web applications. Focused on creating intuitive user experiences with modern technologies."
+        skills={skills}
+        experience={[
+          {
+            title: "Senior Frontend Developer",
+            company: "TechCorp Inc.",
+            period: "2021 - Present"
+          },
+          {
+            title: "Frontend Developer",
+            company: "WebSolutions Ltd.",
+            period: "2019 - 2021"
+          }
+        ]}
+        imageUrl={imageUrl}
+        onBack={() => setShowFullProfile(false)}
+      />
+    );
+  }
 
   return (
     <div className="flex flex-col items-center px-4 py-8">
@@ -68,7 +94,10 @@ export const ProfileCard = ({
           </div>
           
           {/* Button */}
-          <button className="gradient-button w-full">
+          <button 
+            className="gradient-button w-full"
+            onClick={() => setShowFullProfile(true)}
+          >
             View Profile
           </button>
         </div>
