@@ -1,7 +1,7 @@
-
 import { useState } from "react";
 import { ProfileCard } from "./ProfileCard";
 import { MessagesCard } from "./MessagesCard";
+import { SettingsCard } from "./SettingsCard";
 import { StepNavigation } from "./StepNavigation";
 import { useToast } from "@/components/ui/use-toast";
 
@@ -107,7 +107,7 @@ const initialMessages: Message[] = [
   }
 ];
 
-type Step = 'profile' | 'messages';
+type Step = 'profile' | 'messages' | 'settings';
 
 export const ProfileDeck = () => {
   const [profiles, setProfiles] = useState<Profile[]>(initialProfiles);
@@ -152,12 +152,33 @@ export const ProfileDeck = () => {
   const handleNavigateStep = (step: Step) => {
     if (step === currentStep) return;
     
-    setSlideDirection(step === 'messages' ? 'left' : 'right');
+    // Determine slide direction based on current and next step
+    const stepOrder: Step[] = ['profile', 'messages', 'settings'];
+    const currentIndex = stepOrder.indexOf(currentStep);
+    const nextIndex = stepOrder.indexOf(step);
+    
+    setSlideDirection(nextIndex > currentIndex ? 'left' : 'right');
     
     setTimeout(() => {
       setCurrentStep(step);
       setSlideDirection(null);
     }, 300);
+  };
+
+  const handleNext = () => {
+    if (currentStep === 'profile') {
+      handleNavigateStep('messages');
+    } else if (currentStep === 'messages') {
+      handleNavigateStep('settings');
+    }
+  };
+
+  const handlePrevious = () => {
+    if (currentStep === 'messages') {
+      handleNavigateStep('profile');
+    } else if (currentStep === 'settings') {
+      handleNavigateStep('messages');
+    }
   };
 
   if (profiles.length === 0) {
@@ -183,16 +204,33 @@ export const ProfileDeck = () => {
             imageUrl={profiles[0].imageUrl}
             onSwipe={handleSwipe}
           />
-        ) : (
+        ) : currentStep === 'messages' ? (
           <MessagesCard messages={messages} />
+        ) : (
+          <SettingsCard />
         )}
       </div>
       
+      {/* Step indicators */}
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+        {['profile', 'messages', 'settings'].map((step, index) => (
+          <div 
+            key={step} 
+            className={`w-2 h-2 rounded-full transition-all ${
+              currentStep === step 
+                ? 'bg-white w-4' 
+                : 'bg-white/40'
+            }`}
+            onClick={() => handleNavigateStep(step as Step)}
+          />
+        ))}
+      </div>
+      
       <StepNavigation 
-        onPrevious={() => handleNavigateStep('profile')}
-        onNext={() => handleNavigateStep('messages')}
-        showPrevious={currentStep === 'messages'}
-        showNext={currentStep === 'profile'}
+        onPrevious={handlePrevious}
+        onNext={handleNext}
+        showPrevious={currentStep !== 'profile'}
+        showNext={currentStep !== 'settings'}
       />
     </div>
   );
