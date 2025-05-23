@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ProfileDeck } from "@/components/ProfileDeck";
+import { JobDeck } from "@/components/JobDeck";
 import { LoginScreen } from "@/components/LoginScreen";
 
 const Index = () => {
@@ -20,14 +21,19 @@ const Index = () => {
     <div className="min-h-screen w-full gradient-bg flex flex-col items-center justify-center overflow-hidden">
       <header className="w-full px-6 py-4 flex items-center justify-between">
         <h1 className="text-white text-xl font-semibold">Hired</h1>
+        <span className="text-white/60 text-sm">
+          {userRole === "employer" ? "Employer Dashboard" : "Job Search"}
+        </span>
       </header>
       
       <main className="flex-1 w-full flex flex-col items-center justify-center px-4">
-        <ProfileDeck />
+        {userRole === "employer" ? <ProfileDeck /> : <JobDeck />}
       </main>
       
       <footer className="w-full text-center py-4 text-white/60 text-xs">
-        Swipe through top developer profiles
+        {userRole === "employer" 
+          ? "Swipe through top developer profiles"
+          : "Find your next opportunity"}
       </footer>
     </div>
   );
