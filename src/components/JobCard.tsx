@@ -91,11 +91,13 @@ export const JobCard = ({ job, onSwipe }: JobCardProps) => {
           {/* Action Buttons */}
           <div className="w-full mt-6 space-y-3">
             <Button
+              onClick={() => handleSwipe('up')}
               className="gradient-button w-full"
             >
               Apply Now
             </Button>
             <Button
+              onClick={() => handleSwipe('right')}
               variant="outline"
               className="w-full bg-white/10 text-white border-white/20 hover:bg-white/20"
             >
@@ -105,7 +107,7 @@ export const JobCard = ({ job, onSwipe }: JobCardProps) => {
         </div>
       </div>
 
-      {/* Swipe Buttons */}
+      {/* Interaction Icons */}
       <div className="flex justify-center gap-4 mt-6">
         <button 
           onClick={() => handleSwipe('left')}

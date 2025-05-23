@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { JobCard } from "@/components/JobCard";
 import { MessagesCard } from "@/components/MessagesCard";
 import { SettingsCard } from "@/components/SettingsCard";
@@ -165,20 +164,6 @@ export const JobDeck = () => {
           showNext={true}
         />
       </div>
-
-      {/* Navigation Buttons */}
-      <button
-        onClick={() => handleStepChange((currentStep - 1 + 4) % 4)}
-        className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-12 h-12 rounded-full glass-card flex items-center justify-center hover:bg-white/20 transition-colors"
-      >
-        <ChevronLeft className="text-white" />
-      </button>
-      <button
-        onClick={() => handleStepChange((currentStep + 1) % 4)}
-        className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-12 h-12 rounded-full glass-card flex items-center justify-center hover:bg-white/20 transition-colors"
-      >
-        <ChevronRight className="text-white" />
-      </button>
     </div>
   );
 }; 
