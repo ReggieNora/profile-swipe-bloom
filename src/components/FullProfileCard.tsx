@@ -24,7 +24,7 @@ export const FullProfileCard = ({
   onBack,
 }: FullProfileCardProps) => {
   return (
-    <div className="flex flex-col items-center px-4 py-8">
+    <div className="fixed inset-0 z-50 flex items-center justify-center px-4 py-8">
       <div className="glass-card rounded-3xl w-full max-w-xs animate-card-appear overflow-hidden">
         <div className="flex flex-col items-center p-6">
           {/* Back Button */}
