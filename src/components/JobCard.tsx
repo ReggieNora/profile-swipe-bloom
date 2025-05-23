@@ -36,39 +36,39 @@ export const JobCard = ({ job, onSwipe }: JobCardProps) => {
   };
 
   return (
-    <div className="flex flex-col items-center px-4 py-8">
+    <div className="flex flex-col items-center px-4 py-4">
       <div 
         className={`glass-card rounded-3xl w-full max-w-xs animate-card-appear ${swipeAnimation || ''}`}
       >
-        <div className="flex flex-col items-center p-6">
+        <div className="flex flex-col items-center p-4">
           {/* Company Logo */}
-          <div className="relative mb-4">
-            <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-white/30 shadow-lg bg-white/10 flex items-center justify-center">
-              <Building2 className="w-16 h-16 text-white" />
+          <div className="relative mb-3">
+            <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-white/30 shadow-lg bg-white/10 flex items-center justify-center">
+              <Building2 className="w-12 h-12 text-white" />
             </div>
           </div>
 
           {/* Job Title and Company */}
-          <div className="text-center mb-6">
-            <h2 className="text-2xl font-bold text-white mb-1">{job.title}</h2>
+          <div className="text-center mb-4">
+            <h2 className="text-xl font-bold text-white mb-1">{job.title}</h2>
             <p className="text-profile-light-purple text-sm">{job.company}</p>
           </div>
 
           {/* Location */}
-          <div className="flex items-center text-white/60 mb-4">
+          <div className="flex items-center text-white/60 mb-3">
             <MapPin className="w-4 h-4 mr-1" />
             <span className="text-sm">{job.location}</span>
           </div>
 
           {/* Job Details */}
-          <div className="w-full space-y-4">
+          <div className="w-full space-y-3">
             <div className="flex justify-between text-sm text-white/80">
               <span>{job.type}</span>
               <span>{job.salary}</span>
             </div>
 
             {/* Description */}
-            <p className="text-white/70 text-sm leading-relaxed">
+            <p className="text-white/70 text-sm leading-relaxed line-clamp-3">
               {job.description}
             </p>
 
@@ -77,7 +77,7 @@ export const JobCard = ({ job, onSwipe }: JobCardProps) => {
               {job.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="px-4 py-1 rounded-full glass-card text-white/90 text-xs"
+                  className="px-3 py-1 rounded-full glass-card text-white/90 text-xs"
                 >
                   {tag}
                 </span>
@@ -88,27 +88,20 @@ export const JobCard = ({ job, onSwipe }: JobCardProps) => {
             <p className="text-white/60 text-xs text-center">{job.posted}</p>
           </div>
 
-          {/* Action Buttons */}
-          <div className="w-full mt-6 space-y-3">
+          {/* Action Button */}
+          <div className="w-full mt-4">
             <Button
               onClick={() => handleSwipe('up')}
               className="gradient-button w-full"
             >
               Apply Now
             </Button>
-            <Button
-              onClick={() => handleSwipe('right')}
-              variant="outline"
-              className="w-full bg-white/10 text-white border-white/20 hover:bg-white/20"
-            >
-              Save Job
-            </Button>
           </div>
         </div>
       </div>
 
       {/* Interaction Icons */}
-      <div className="flex justify-center gap-4 mt-6">
+      <div className="flex justify-center gap-4 mt-4">
         <button 
           onClick={() => handleSwipe('left')}
           className="w-14 h-14 rounded-full flex items-center justify-center bg-white/10 hover:bg-red-500/20 transition-colors border border-white/10"
